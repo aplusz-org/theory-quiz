@@ -167,13 +167,13 @@
     border: 2px solid #e2e8f0;
   }
 
-  .answers { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; flex: 1; }
+  .answers { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; flex: 1; }
 
   .answer-btn {
     background: white;
     border: 2px solid #e2e8f0;
     border-radius: var(--radius);
-    padding: 12px 14px;
+    padding: 10px 14px;
     font-size: 15px;
     font-weight: 600;
     color: var(--text);
@@ -227,40 +227,38 @@
     flex-shrink: 0;
     background: white;
     border-top: 2px solid #e2e8f0;
-    padding: 14px 16px;
+    padding: 10px 16px 12px;
     display: none;
   }
-  .feedback-panel.visible { display: block; }
+  .feedback-panel.visible { display: flex; flex-direction: column; gap: 8px; }
   .feedback-panel.correct { border-top-color: var(--green); background: #f0fdf4; }
   .feedback-panel.wrong { border-top-color: var(--red); background: #fef2f2; }
 
   .feedback-box {
-    border-radius: var(--radius);
     padding: 0;
-    margin-bottom: 12px;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.4;
     display: block;
   }
   .feedback-panel.correct .feedback-box { color: #15803d; }
   .feedback-panel.wrong .feedback-box { color: #b91c1c; }
 
-  .feedback-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .feedback-emoji { font-size: 20px; }
-  .feedback-title { font-weight: 800; font-size: 15px; }
-  .feedback-body-text { font-size: 14px; line-height: 1.5; }
+  .feedback-top { display: flex; align-items: center; gap: 6px; }
+  .feedback-emoji { font-size: 18px; }
+  .feedback-title { font-weight: 800; font-size: 14px; }
+  .feedback-body-text { font-size: 13px; line-height: 1.4; }
 
   .btn-next {
     background: var(--blue);
     color: white;
     border: none;
     border-radius: 50px;
-    padding: 14px;
-    font-size: 17px;
+    padding: 12px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
     width: 100%;
-    margin-top: 10px;
+    flex-shrink: 0;
   }
   .btn-next:active { opacity: 0.9; }
 
