@@ -2,8 +2,10 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="referrer" content="no-referrer">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>תאוריה עם ירדן 🚗</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -123,7 +125,7 @@
     margin-bottom: 10px;
   }
   .question-text {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 1.55;
     color: var(--text);
@@ -154,7 +156,28 @@
     transition: border-color 0.15s, background 0.15s;
     width: 100%;
     direction: rtl;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
   }
+  .answer-num {
+    background: #e2e8f0;
+    color: var(--muted);
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    margin-top: 1px;
+  }
+  .answer-btn.correct .answer-num { background: #bbf7d0; color: #15803d; }
+  .answer-btn.wrong .answer-num { background: #fecaca; color: #b91c1c; }
+  .answer-btn.show-correct .answer-num { background: #bbf7d0; color: #15803d; }
+  .answer-text { flex: 1; }
   .answer-btn:active { transform: scale(0.99); }
   .answer-btn.correct {
     background: #f0fdf4;
@@ -468,12 +491,13 @@ function renderQuestion() {
     img.style.display = 'none';
   }
 
+  const LABELS = ['1', '2', '3', '4'];
   const container = document.getElementById('answersContainer');
   container.innerHTML = '';
   q.a.forEach((ans, i) => {
     const btn = document.createElement('button');
     btn.className = 'answer-btn';
-    btn.textContent = ans;
+    btn.innerHTML = `<span class="answer-num">${LABELS[i]}</span><span class="answer-text">${ans}</span>`;
     btn.onclick = () => selectAnswer(i);
     container.appendChild(btn);
   });
