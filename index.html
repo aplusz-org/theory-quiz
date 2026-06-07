@@ -88,20 +88,38 @@
   .btn-start-secondary:active { transform: scale(0.97); }
 
   /* ── QUIZ ── */
-  #quiz { background: var(--bg); }
+  #quiz {
+    background: var(--bg);
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 
   .quiz-header {
     background: white;
-    padding: 14px 20px;
+    padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #e2e8f0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    flex-shrink: 0;
   }
   .quiz-progress-text { font-size: 14px; color: var(--muted); font-weight: 600; }
+  .quiz-score-text { font-size: 13px; font-weight: 700; color: var(--text); }
+  .btn-restart {
+    background: #f1f5f9;
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-restart:active { background: #e2e8f0; }
   .quiz-timer {
     font-size: 18px;
     font-weight: 800;
@@ -111,48 +129,57 @@
   .quiz-timer.warning { color: var(--red); animation: pulse 1s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
 
-  .progress-bar-wrap { background: #e2e8f0; height: 4px; }
+  .progress-bar-wrap { background: #e2e8f0; height: 4px; flex-shrink: 0; }
   .progress-bar { background: var(--blue); height: 4px; transition: width 0.3s; }
 
-  .quiz-body { padding: 20px 16px; flex: 1; }
+  .quiz-body {
+    padding: 14px 16px 0 16px;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+  }
 
   .question-num {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--blue);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
   .question-text {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
-    line-height: 1.55;
+    line-height: 1.45;
     color: var(--text);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
   .question-img {
     width: 100%;
-    max-width: 340px;
+    max-width: 280px;
+    max-height: 140px;
+    object-fit: contain;
     border-radius: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     display: block;
     border: 2px solid #e2e8f0;
   }
 
-  .answers { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .answers { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; flex: 1; }
 
   .answer-btn {
     background: white;
     border: 2px solid #e2e8f0;
     border-radius: var(--radius);
-    padding: 14px 16px;
-    font-size: 16px;
+    padding: 12px 14px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--text);
     text-align: right;
     cursor: pointer;
-    line-height: 1.4;
+    line-height: 1.35;
     transition: border-color 0.15s, background 0.15s;
     width: 100%;
     direction: rtl;
@@ -196,41 +223,44 @@
   }
   .answer-btn:disabled { cursor: default; }
 
-  .feedback-box {
-    border-radius: var(--radius);
-    padding: 16px;
-    margin-top: 4px;
-    font-size: 15px;
-    line-height: 1.55;
+  .feedback-panel {
+    flex-shrink: 0;
+    background: white;
+    border-top: 2px solid #e2e8f0;
+    padding: 14px 16px;
     display: none;
   }
-  .feedback-box.correct {
-    background: #f0fdf4;
-    border: 2px solid var(--green);
-    color: #15803d;
+  .feedback-panel.visible { display: block; }
+  .feedback-panel.correct { border-top-color: var(--green); background: #f0fdf4; }
+  .feedback-panel.wrong { border-top-color: var(--red); background: #fef2f2; }
+
+  .feedback-box {
+    border-radius: var(--radius);
+    padding: 0;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.5;
     display: block;
   }
-  .feedback-box.wrong {
-    background: #fef2f2;
-    border: 2px solid var(--red);
-    color: #b91c1c;
-    display: block;
-  }
-  .feedback-emoji { font-size: 24px; margin-bottom: 6px; }
-  .feedback-title { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
+  .feedback-panel.correct .feedback-box { color: #15803d; }
+  .feedback-panel.wrong .feedback-box { color: #b91c1c; }
+
+  .feedback-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .feedback-emoji { font-size: 20px; }
+  .feedback-title { font-weight: 800; font-size: 15px; }
+  .feedback-body-text { font-size: 14px; line-height: 1.5; }
 
   .btn-next {
     background: var(--blue);
     color: white;
     border: none;
     border-radius: 50px;
-    padding: 16px;
+    padding: 14px;
     font-size: 17px;
     font-weight: 700;
     cursor: pointer;
     width: 100%;
-    margin-top: 16px;
-    display: none;
+    margin-top: 10px;
   }
   .btn-next:active { opacity: 0.9; }
 
@@ -328,8 +358,14 @@
 <!-- QUIZ -->
 <div id="quiz" class="screen">
   <div class="quiz-header">
-    <div class="quiz-progress-text" id="progressText">שאלה 1 מתוך 30</div>
-    <div class="quiz-timer" id="timerDisplay">40:00</div>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <div class="quiz-progress-text" id="progressText">שאלה 1 מתוך 30</div>
+      <div class="quiz-score-text" id="scoreText">✅ 0 &nbsp;❌ 0</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="btn-restart" onclick="confirmRestart()">🔄</button>
+      <div class="quiz-timer" id="timerDisplay">40:00</div>
+    </div>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar" id="progressBar" style="width:0%"></div>
@@ -339,10 +375,14 @@
     <div class="question-text" id="questionText"></div>
     <img id="questionImg" class="question-img" style="display:none" alt="תמונה לשאלה" referrerpolicy="no-referrer">
     <div class="answers" id="answersContainer"></div>
+  </div>
+  <div class="feedback-panel" id="feedbackPanel">
     <div class="feedback-box" id="feedbackBox">
-      <div class="feedback-emoji" id="feedbackEmoji"></div>
-      <div class="feedback-title" id="feedbackTitle"></div>
-      <div id="feedbackBody"></div>
+      <div class="feedback-top">
+        <span class="feedback-emoji" id="feedbackEmoji"></span>
+        <span class="feedback-title" id="feedbackTitle"></span>
+      </div>
+      <div class="feedback-body-text" id="feedbackBody"></div>
     </div>
     <button class="btn-next" id="btnNext" onclick="nextQuestion()">השאלה הבאה ←</button>
   </div>
@@ -450,7 +490,16 @@ function startQuiz() {
   renderQuestion();
 }
 
-function startPractice() {
+function updateScoreDisplay() {
+  const wrong = (current + (answered ? 1 : 0)) - score;
+  document.getElementById('scoreText').innerHTML = '✅ ' + score + ' &nbsp;❌ ' + wrong;
+}
+
+function confirmRestart() {
+  if (confirm('להתחיל מבחן חדש? ההתקדמות תאבד.')) {
+    startQuiz();
+  }
+}
   practiceMode = true;
   exam = pick30();
   current = 0;
@@ -491,9 +540,9 @@ function renderQuestion() {
     img.style.display = 'none';
   }
 
-  const LABELS = ['1', '2', '3', '4'];
   const container = document.getElementById('answersContainer');
   container.innerHTML = '';
+  const LABELS = ['1', '2', '3', '4'];
   q.a.forEach((ans, i) => {
     const btn = document.createElement('button');
     btn.className = 'answer-btn';
@@ -502,9 +551,11 @@ function renderQuestion() {
     container.appendChild(btn);
   });
 
-  const fb = document.getElementById('feedbackBox');
-  fb.className = 'feedback-box';
+  // Hide feedback panel
+  const panel = document.getElementById('feedbackPanel');
+  panel.className = 'feedback-panel';
   document.getElementById('btnNext').style.display = 'none';
+  updateScoreDisplay();
 }
 
 function selectAnswer(idx) {
@@ -517,6 +568,7 @@ function selectAnswer(idx) {
 
   const isCorrect = idx === q.c;
   if (isCorrect) score++;
+  updateScoreDisplay();
 
   btns[idx].classList.add(isCorrect ? 'correct' : 'wrong');
   if (!isCorrect) btns[q.c].classList.add('show-correct');
@@ -526,23 +578,23 @@ function selectAnswer(idx) {
 }
 
 function showFeedback(isCorrect, q, chosenIdx) {
-  const fb = document.getElementById('feedbackBox');
+  const panel = document.getElementById('feedbackPanel');
   const emoji = document.getElementById('feedbackEmoji');
   const title = document.getElementById('feedbackTitle');
   const body = document.getElementById('feedbackBody');
 
   if (isCorrect) {
     const msg = CORRECT_MSGS[Math.floor(Math.random() * CORRECT_MSGS.length)];
-    fb.className = 'feedback-box correct';
+    panel.className = 'feedback-panel visible correct';
     emoji.textContent = msg.emoji;
     title.textContent = msg.title;
     body.textContent = msg.body;
   } else {
     const prefix = WRONG_PREFIX[Math.floor(Math.random() * WRONG_PREFIX.length)];
-    fb.className = 'feedback-box wrong';
+    panel.className = 'feedback-panel visible wrong';
     emoji.textContent = '📖';
     title.textContent = 'התשובה הנכונה היא:';
-    body.innerHTML = '<strong>' + q.a[q.c] + '</strong><br><br>' + prefix + 'שים לב לתשובה המסומנת בירוק — תזכור אותה לפעם הבאה!';
+    body.innerHTML = '<strong>' + q.a[q.c] + '</strong><br>' + prefix + 'שים לב לתשובה המסומנת בירוק!';
   }
 }
 
